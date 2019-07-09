@@ -4,7 +4,6 @@ from copy import copy
 
 import Tile
 
-
 class Map:
 	def __init__(self, parent, info):
 
