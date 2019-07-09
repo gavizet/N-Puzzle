@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
 import sys
 import parse_file
+import parse_args
 import graphic
 
 def main(av):
-	if len(av) != 2:
-		print('Need 1 File')
-		return
-	# Parse threw file
-	info = parse_file.parse(av[1])
-	graphic.StartGame(info)
+    args = parse_args.get_args()
+    print(args)
+    if not args.file:
+        print('Have to call the generate function they give us')
+        # generate_grid()
+        sys.exit(0)
+    else:
+        info = parse_file.parse(args.file.name)
+    if args.visualizer:
+        graphic.StartGame(info)
 
 if __name__ == '__main__':
     try:

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from Boardinfo import BoardInfo
+from board_info import BoardInfo
 import re
 import sys
 

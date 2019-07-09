@@ -2,7 +2,7 @@ from tkinter import *
 from random import randint as ri
 from copy import copy
 
-import Tile
+import tile
 
 class Map:
 	def __init__(self, parent, info):
@@ -91,7 +91,7 @@ class Map:
 				idx += 1
 				continue
 			posconv = idx % self.size, int(idx / self.size)  # Converts the new idx into (x, y)
-			self.table[idx] = Tile.Cell(self.main_canvas, self.root, posconv, self.width / self.size, info.node.get(idx))
+			self.table[idx] = tile.Cell(self.main_canvas, self.root, posconv, self.width / self.size, info.node.get(idx))
 			idx += 1
 
 	def _right(self):
