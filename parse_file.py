@@ -3,13 +3,15 @@ from board_info import BoardInfo
 import re
 import sys
 
-def parse(file):
-	fp = open(file)
+def parse(args):
+	fp = open(args.file.name)
 	line = fp.readline()
 	while line.strip()[:1] == '#':
 		line = fp.readline()
-	info = BoardInfo()
+	info = BoardInfo(args)
 	info.size = int(line)
+	if (info.size < 3):
+		sys.exit("Size of the puzzle's side. Must be > 3.")
 	countLine = 0
 	error = 1
 	line = fp.readline()

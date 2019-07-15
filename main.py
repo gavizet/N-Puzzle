@@ -12,8 +12,8 @@ def main(av):
         # generate_grid()
         sys.exit(0)
     else:
-        info = parse_file.parse(args.file.name)
-        info.print_grid(info.solutionGridSnail())
+        info = parse_file.parse(args)
+        info.print_grid(info.solutionGrid())
     if args.visualizer:
         graphic.StartGame(info)
 

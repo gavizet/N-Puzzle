@@ -17,6 +17,15 @@ class PriorityQueue(object):
 			sys.exit("%s Duplicated ERROR !" % data)
 		self.queue.append(data)
 
+	def print_grid(self):
+		i = 0
+		for f in self.queue:
+			print(f, end = " ")
+			i += 1
+			if i >= math.sqrt(len(self.queue)):
+				i = 0
+				print()
+
 	def get(self, index):
 		return self.queue[index]
 
@@ -42,6 +51,18 @@ class PriorityQueue(object):
 class BoardInfo():
 	size = 0
 	node = PriorityQueue()
+	greedy = False
+	uniform = False
+	heuristics = 0
+	visualizer = False
+	solution = 1
+
+	def __init__(self, args):
+		self.greedy = args.greedy
+		self.uniform = args.uniform
+		self.heuristics = args.heuristics
+		self.visualizer = args.visualizer
+		self.solution = args.solution
 
 	def print_grid(self, grid):
 		i = 0
@@ -52,17 +73,19 @@ class BoardInfo():
 				i = 0
 				print()
 
-	def solutionGridLine(self):
+	def solutionGrid(self, snail = 1):
+		print("SOLUTION GRID :")
+		ret = [0] * self.size**2
+
+		# Solution Grid Line
 		p = [0] * self.size**2
 		p = self.node.getAll()
 		p.sort()
 		p.pop(0)
 		p.append(0)
-		return p
 
-	def solutionGridSnail(self):
-		ret = [0] * self.size**2
-		p = self.solutionGridLine()
+		if snail is 0:
+			return p
 
 		index = self.size - 1
 		s_index = index
@@ -79,7 +102,6 @@ class BoardInfo():
 				s_index += size * self.size
 			elif dir is 2 :
 				for m_size in range(size):
-					print()
 					ret[s_index - (m_size + 1)] = p[index + m_size + 1]
 				s_index -= size
 			elif dir is 3 :
