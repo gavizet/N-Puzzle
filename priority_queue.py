@@ -1,43 +1,28 @@
-import math
-
 import heapq
 
-class PriorityQueue(object):
-	def __init__(self):
-		self.queue = []
+class PriorityQueue():
+	
+    def __init__(self):
+        """
+        queue           : represents the priority queue
+        max_state_nb    : maximum number of states ever recorded in memory
+        """
+	self.queue = []
+        max_state_nb = 0
 
-	def __str__(self):
-		return ' '.join([str(i) for i in self.queue])
+    def empty(self):
+        """ Returns True if self.queue is empty """
+        return len(self.queue) == 0
 
-	def isEmpty(self):
-		return len(self.queue) == []
+    def put(self, node, prio):
+        """
+        Push a new state (node) into the queue.
+        If the current number of recorded states in queue is greater than
+        previously recorded max number of state, then add 1 to it.
+        """
+        heapq.heappush(self.queue, (node, prio))
+        if self.max_state_nb < len(self.queue):
+            self.max_state_nb += 1
 
-	def insert(self, data):
-		if data in self.queue:
-			sys.exit("%s Duplicated ERROR !" % data)
-		self.queue.append(data)
-
-	def print_grid(self):
-		i = 0
-		for f in self.queue:
-			print(f, end = " ")
-			i += 1
-			if i >= math.sqrt(len(self.queue)):
-				i = 0
-				print()
-
-	def get(self, index):
-		return self.queue[index]
-
-	def delete(self):
-		try:
-			max = 0
-			for i in range(len(self.queue)):
-				if self.queue[i] > self.queue[max]:
-					max = i
-			item = self.queue[max]
-			del self.queue[max]
-			return item
-		except IndexError:
-			print("Exception")
-			exit()
+    def get(self):
+        """ """
