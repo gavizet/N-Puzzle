@@ -6,12 +6,13 @@
 #    By: gavizet <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/30 10:46:18 by gavizet           #+#    #+#              #
-#    Updated: 2019/07/30 15:03:18 by gavizet          ###   ########.fr        #
+#    Updated: 2019/07/30 17:25:33 by gavizet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 from priority_queue import PriorityQueue
 from node import Node
+from metrics import Metrics
 
 '''
 PLAN
@@ -100,19 +101,33 @@ while open list not empty
 
 class Solver():
 
-    def __init__(self):
+    def __init__(self, start_puzzle, goal, cost, heuristic):
+        """
+        start_node  : contains the complete state for the starting node
+        goal        : resolved puzzle grid
+        heuristic   : admissible heuristic function used to calculate h(n)
+        cost        : transition cost for each movement
+            
+        open_set    : contains the nodes that are candidates to be examined
+        closed_set  : contains the nodes that have already been examined
 
-    def current_is_goal(self):
+        metrics     : instance of the Metrics class
+        """
+        self.start_node = Node(start_puzzle, cost, parent=None)
+        self.goal = goal
+        self.open_set = PriorityQueue()
+        self.open_set.put(start_node, 0)
+        self.closed_set = {}
+        self.metrics = Metrics()
+
+    def current_is_goal(self, node):
         """
         Compares the current state to the final / goal state and return true /
         false
         """
-        if node.state == self.end_state:
-            return True
-        else:
-            return False
+        return node.state == self.goal
 
-    def get_children(node, size):
+    def get_children(self, node, size):
         """
         Gets all the possible children of the current node, depending on it's
         position and the size of the puzzle.
@@ -141,35 +156,25 @@ class Solver():
         return children
 
 
-    def astar(self, start, end, heuristic, cost):
+    def astar(self):
         """
-        start       : starting puzzle grid
-        end         : resolved puzzle grid
-        heuristic   : admissible heuristic function used to calculate h(n)
-        cost        : transition cost for each movement
-            
-        open_set    : contains the nodes that are candidates to be examined
-        closed_set  : contains the nodes that have already been examined
-            
         Return a list of tuples as a path from the given starting puzzle to the
         solution puzzle
         """
 
         # Initialize open and closed sets
-        start_node = Node(start_puzzle, cost, None)
-        open_set = PriorityQueue()
-        closed_set = {}
         # Add the start node to priority queue
-        open_set.put(start, 0)
             
         # Loop until there is no item left in priority queue
         while not open_set.empty():
             current_node == open_set.get()
 
             # If current_node is equal to end, then algorithm is over
-            if current_node == end:
-                # Will have to return the solution later on
-                return True
+            if self.current_is_goal(node):
+                # Return all the metrics needed for the solution. Need to add
+                # the path in Metrics class
+                self.metrics.print_metrics()
+                return solution
             # Get a list of current node children
             children = self.get_children()
             # Loop through children
