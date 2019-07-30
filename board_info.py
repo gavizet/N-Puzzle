@@ -74,7 +74,7 @@ class BoardInfo():
 		print(ret)
 		return ret
 
-	def countInversion(self, snail = 1):
+	def countInversion(self, snail = 0):
 		tab = [0] * self.size**2
 		tab = self.node.getAll()
 		p = [0] * self.size**2

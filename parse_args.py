@@ -6,6 +6,10 @@ def get_args():
     
     parser = argparse.ArgumentParser(description="42 N-Puzzle Algorithmic Project")
 
+    parser.add_argument('-size', type=int, default=3,
+            help='Size of the puzzle\'s side. Must be >3.')
+    parser.add_argument('-i', '--iterations', type=int, default=10000,
+            help="Number of passes")
     parser.add_argument('-g', '--greedy', action='store_true', 
             help='Greedy-first search')
     parser.add_argument('-u', '--uniform', action='store_true',
