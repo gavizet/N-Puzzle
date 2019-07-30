@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    algorithm.py                                       :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: gavizet <marvin@42.fr>                     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/07/30 10:46:18 by gavizet           #+#    #+#              #
+#    Updated: 2019/07/30 15:03:18 by gavizet          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 from priority_queue import PriorityQueue
 from node import Node
 
@@ -86,66 +98,80 @@ while open list not empty
         add the child to the openList
 '''
 
-def get_children(node, size):
-    """
-    Gets all the possible children of the current node, depending on it's
-    position and the size of the puzzle.
-    """
-    empty_tile = node.index(0)
-    children = []
-    if empty_tile % size > 0:
-        child = node.copy()
-        left = empty_tile - 1
-        child[empty_tile], child[left] = child[left], child[empty_tile]
-        children.append(tuple(child))
-    if empty_tile % size + 1 < size:
-        child = node.copy()
-        right = empty_tile + 1
-        child[empty_tile], child[right] = child[right], child[empty_tile]
-        children.append(tuple(child))
-    if empty_tile - size >= 0:
-        child = node.copy()
-        up = empty_tile - size
-        child[empty_tile], child[up] = child[up], child[empty_tile]
-        children.append(tuple(child))
-    if empty_tile + size < len(node)
-        down = empty_tile + size
-        child[empty_tile], child[down] = child[down], child[empty_tile]
-        children.append(tuple(child))
-    return children
+class Solver():
 
+    def __init__(self):
 
-def astar(self, start, end, heuristic, cost):
-    """
-    start       : starting puzzle grid
-    end         : resolved puzzle grid
-    heuristic   : admissible heuristic function used to calculate h(n)
-    cost        : transition cost for each movement
-        
-    open_set    : contains the nodes that are candidates to be examined
-    closed_set  : contains the nodes that have already been examined
-        
-    Return a list of tuples as a path from the given starting puzzle to the
-    solution puzzle
-    """
-
-    # Initialize open and closed sets
-    start_node = Node(start_puzzle, cost, None)
-    open_set = PriorityQueue()
-    closed_set = {}
-    # Add the start node to priority queue
-    open_set.put(start, 0)
-        
-    # Loop until there is no item left in priority queue
-    while not open_set.empty():
-        current_node == open_set.get()
-
-        # If current_node is equal to end, then algorithm is over
-        if current_node == end:
-            # Will have to return the solution later on
+    def current_is_goal(self):
+        """
+        Compares the current state to the final / goal state and return true /
+        false
+        """
+        if node.state == self.end_state:
             return True
-        # Get a list of current node children
-        children = self.get_children()
-        # Loop through children
-        for child in children:
-            print('this is a child')
+        else:
+            return False
+
+    def get_children(node, size):
+        """
+        Gets all the possible children of the current node, depending on it's
+        position and the size of the puzzle.
+        """
+        empty_tile = node.index(0)
+        children = []
+        if empty_tile % size > 0:
+            child = node.copy()
+            left = empty_tile - 1
+            child[empty_tile], child[left] = child[left], child[empty_tile]
+            children.append(tuple(child))
+        if empty_tile % size + 1 < size:
+            child = node.copy()
+            right = empty_tile + 1
+            child[empty_tile], child[right] = child[right], child[empty_tile]
+            children.append(tuple(child))
+        if empty_tile - size >= 0:
+            child = node.copy()
+            up = empty_tile - size
+            child[empty_tile], child[up] = child[up], child[empty_tile]
+            children.append(tuple(child))
+        if empty_tile + size < len(node)
+            down = empty_tile + size
+            child[empty_tile], child[down] = child[down], child[empty_tile]
+            children.append(tuple(child))
+        return children
+
+
+    def astar(self, start, end, heuristic, cost):
+        """
+        start       : starting puzzle grid
+        end         : resolved puzzle grid
+        heuristic   : admissible heuristic function used to calculate h(n)
+        cost        : transition cost for each movement
+            
+        open_set    : contains the nodes that are candidates to be examined
+        closed_set  : contains the nodes that have already been examined
+            
+        Return a list of tuples as a path from the given starting puzzle to the
+        solution puzzle
+        """
+
+        # Initialize open and closed sets
+        start_node = Node(start_puzzle, cost, None)
+        open_set = PriorityQueue()
+        closed_set = {}
+        # Add the start node to priority queue
+        open_set.put(start, 0)
+            
+        # Loop until there is no item left in priority queue
+        while not open_set.empty():
+            current_node == open_set.get()
+
+            # If current_node is equal to end, then algorithm is over
+            if current_node == end:
+                # Will have to return the solution later on
+                return True
+            # Get a list of current node children
+            children = self.get_children()
+            # Loop through children
+            for child in children:
+                print('this is a child')
