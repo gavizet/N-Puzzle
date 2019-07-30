@@ -1,6 +1,9 @@
 import os
 import sys
 import argparse
+from board_info import BoardInfo
+import random
+import npuzzlegen
 
 def get_args():
     
@@ -26,3 +29,23 @@ def get_args():
     
     args = parser.parse_args()
     return args
+
+def parse_generator(args):
+        s = args.size
+        if args.size < 3:
+            print ("Can't generate a puzzle with size lower than 2. It says so in the help. Dummy.")
+            sys.exit(1)
+        info = BoardInfo(args)
+        info.size = s
+        solv = random.choice([True, False])
+        puzzle = npuzzlegen.make_puzzle(info.size, solv,args.iterations)
+        w = len(str(s*s))
+        print ("# This puzzle is %s" % ("solvable" if solv else "unsolvable"))
+        print ("%d" % s)
+        for y in range(s):
+            for x in range(s):
+                print ("%s" % (str(puzzle[x + y*s]).rjust(w)),end =" ")
+            print()
+        for i in range(s*s):
+                info.node.insert(puzzle[i])
+        return info

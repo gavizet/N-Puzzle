@@ -18,13 +18,10 @@ class BoardInfo():
 		self.solution = args.solution
 
 	def print_grid(self, grid):
-		i = 0
-		for f in grid:
-			print(f, end = " ")
-			i += 1
-			if i >= math.sqrt(len(grid)):
-				i = 0
-				print()
+		for y in range(self.size):
+			for x in range(self.size):
+				print ("%s" % (str(grid[x + y*self.size]).rjust(len(str(self.size**2)))),end =" ")
+			print()
 
 	def solutionGrid(self, snail = 1):
 		print("SOLUTION GRID :")
