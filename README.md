@@ -23,5 +23,5 @@ We must implement at least 3 heuristic functions, with one of them being the Man
 Project is not finished.
 
 ## Subject
-For more details, you can download the project (in French) from [here](https://raw.githubusercontent.com/gavizet/n-puzzle/master/resources/n-puzzle-en.subject.pdf).
+For more details, you can download the project (in French) from [here](resources/n-puzzle-en.subject.pdf).
 You can also view it directly in the ./resource folder of this project.
