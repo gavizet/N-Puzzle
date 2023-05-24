@@ -8,11 +8,13 @@ def main(av):
     args = parse_args.get_args()
     print(args)
     if not args.file:
-        print('Have to call the generate function they give us')
-        # generate_grid()
-        sys.exit(0)
+        info = parse_args.parse_generator(args)
+        info.print_grid(info.solutionGrid())
+        print(info.countInversion())
     else:
-        info = parse_file.parse(args.file.name)
+        info = parse_file.parse(args)
+        info.print_grid(info.solutionGrid())
+        print(info.countInversion())
     if args.visualizer:
         graphic.StartGame(info)
 
@@ -21,4 +23,3 @@ if __name__ == '__main__':
         main(sys.argv)
     except Exception as exception:
         print("General uncaught exception : ", exception)
-

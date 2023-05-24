@@ -1,11 +1,18 @@
 import os
 import sys
 import argparse
+from board_info import BoardInfo
+import random
+import npuzzlegen
 
 def get_args():
     
     parser = argparse.ArgumentParser(description="42 N-Puzzle Algorithmic Project")
 
+    parser.add_argument('-size', type=int, default=3,
+            help='Size of the puzzle\'s side. Must be >3.')
+    parser.add_argument('-i', '--iterations', type=int, default=10000,
+            help="Number of passes")
     parser.add_argument('-g', '--greedy', action='store_true', 
             help='Greedy-first search')
     parser.add_argument('-u', '--uniform', action='store_true',
@@ -22,3 +29,23 @@ def get_args():
     
     args = parser.parse_args()
     return args
+
+def parse_generator(args):
+        s = args.size
+        if args.size < 3:
+            print ("Can't generate a puzzle with size lower than 2. It says so in the help. Dummy.")
+            sys.exit(1)
+        info = BoardInfo(args)
+        info.size = s
+        solv = random.choice([True, False])
+        puzzle = npuzzlegen.make_puzzle(info.size, solv,args.iterations)
+        w = len(str(s*s))
+        print ("# This puzzle is %s" % ("solvable" if solv else "unsolvable"))
+        print ("%d" % s)
+        for y in range(s):
+            for x in range(s):
+                print ("%s" % (str(puzzle[x + y*s]).rjust(w)),end =" ")
+            print()
+        for i in range(s*s):
+                info.node.insert(puzzle[i])
+        return info
