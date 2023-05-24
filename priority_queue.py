@@ -1,5 +1,3 @@
-import math
-
 import heapq
 
 class PriorityQueue(object):
